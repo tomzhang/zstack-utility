@@ -2317,7 +2317,7 @@ class VmPlugin(kvmagent.KvmAgent):
             memory_size = cmd.memorySize
             rsp.memorySize = vm.hotplug_mem(memory_size)
             rsp.cpuNum = vm.hotplug_cpu(cpu_num)
-            logger.debug('successfully add cpu and memory on vm[uuid:%s]' % (cmd.uuid))
+            logger.debug('successfully add cpu and memory on vm[uuid:%s]' % (cmd.vmUuid))
         except kvmagent.KvmError as e:
             logger.warn(linux.get_exception_stacktrace())
             rsp.error = str(e)
