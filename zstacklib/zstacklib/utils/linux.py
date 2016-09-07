@@ -320,6 +320,7 @@ def mkdir(path, mode):
     if os.path.isdir(path):
         return
 
+
     if os.path.isfile(path):
         try:
            os.system("mv -f %s %s-bak" % (path, path))
