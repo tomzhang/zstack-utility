@@ -839,6 +839,7 @@ class Vm(object):
 
     def get_cpu_num(self):
         cpuNum = self.domain_xmlobject.vcpu.get('current')
+        logger.debug("luchukun***** currentMemory : %s" % (cpuNum))
         if cpuNum:
             return int(cpuNum)
         else:
@@ -853,7 +854,8 @@ class Vm(object):
             return 512
 
     def get_memory(self):
-        return long(self.domain_xmlobject.memory.text_) * 1024
+        logger.debug("luchukun***** currentMemory : %s"% (self.domain_xmlobject.currentMemory.text_))
+        return long(self.domain_xmlobject.currentMemory.text_) * 1024
 
     def get_name(self):
         return self.domain_xmlobject.description.text_
@@ -1800,15 +1802,16 @@ class Vm(object):
                 cpu = e(root, 'cpu')
 
             #e(cpu, 'topology', attrib={'sockets': str(cmd.socketNum), 'cores': str(cmd.cpuOnSocket), 'threads': '1'})
+            mem = cmd.memory / 1024
             e(cpu, 'topology', attrib={'sockets': str(32), 'cores': str(32), 'threads': '1'})
             numa = e(cpu, 'numa')
-            e(numa, 'cell', attrib={'id': '0', 'cpus':'0-127', 'memory': str(1048576), 'unit':'KiB'})
+            e(numa, 'cell', attrib={'id': '0', 'cpus':'0-127', 'memory': str(mem), 'unit':'KiB'})
 
         def make_memory():
             root = elements['root']
             mem = cmd.memory / 1024
             e(root, 'maxMemory',str(104857600),{'slots':str(16), 'unit':'KiB'})
-            e(root,'memory',str(mem),{'unit':'k'})
+            #e(root,'memory',str(mem),{'unit':'k'})
             e(root, 'currentMemory', str(mem), {'unit':'k'})
 
         def make_os():
