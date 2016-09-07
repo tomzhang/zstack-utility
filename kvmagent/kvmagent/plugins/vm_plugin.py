@@ -838,8 +838,9 @@ class Vm(object):
         return self.state == state
 
     def get_cpu_num(self):
-        cpuNum = self.domain_xmlobject.vcpu.get('current')
-        logger.debug("luchukun***** currentMemory : %s" % (cpuNum))
+        vcpu = self.domain_xmlobject.get_child_node('vcpu')
+        cpuNum = vcpu.get('current')
+        logger.debug("luchukun***** currencpuNum : %s" % (cpuNum))
         if cpuNum:
             return int(cpuNum)
         else:
@@ -854,7 +855,6 @@ class Vm(object):
             return 512
 
     def get_memory(self):
-        logger.debug("luchukun***** currentMemory : %s"% (self.domain_xmlobject.currentMemory.text_))
         return long(self.domain_xmlobject.currentMemory.text_) * 1024
 
     def get_name(self):
