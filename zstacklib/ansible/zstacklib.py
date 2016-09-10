@@ -168,7 +168,7 @@ class ZstackRunner(object):
         result = runner.run()
         return  result
 
-<<<<<<< HEAD
+
 def banner(text, ch='*', length=78):
     star_text = "**"
     spaced_text = ' %s ' % text
